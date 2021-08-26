@@ -1,7 +1,12 @@
 import React from "react";
+import InputBox from "./components/InputBox/InputBox";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <main>
+      <InputBox />
+    </main>
+  );
 };
 
 export default App;

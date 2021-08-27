@@ -10,6 +10,7 @@ import Post from "../Post/Post";
 
 import Form from "../Form/Form";
 import Gifs from "../Gifs/Gifs";
+import Spinner from "../Spinner/Spinner";
 
 const InputBox = () => {
   const [showInput, setShowInput] = useState(false);
@@ -56,17 +57,21 @@ const InputBox = () => {
   const handleSubmitPost = (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     if (text.length && image.length) {
       let copy = [...posts];
 
-      copy = [...copy, { id: uuidv4(), image, text }];
+      copy = [{ id: uuidv4(), image, text }, ...copy];
 
       setPosts(copy);
+      setLoading(false);
 
       setText("");
       setImage("");
       setQuery("");
       setShowInput(false);
+      setSelectImage("");
     }
   };
 
@@ -100,7 +105,7 @@ const InputBox = () => {
             </form>
 
             {loading ? (
-              "Loading"
+              <Spinner />
             ) : (
               <div className="gifs__container">
                 {fetchGifs.length &&
@@ -118,10 +123,11 @@ const InputBox = () => {
           </div>
         )}
       </div>
+
       {posts.length ? (
         posts.map((post) => <Post post={post} />)
       ) : (
-        <div>No posts yet</div>
+        <div className="no-post">No posts yet</div>
       )}
     </>
   );

@@ -37,9 +37,9 @@ const Post = ({ post }) => {
           </div>
 
           <div className="post__container-right">
-            <div></div>
-            <div></div>
-            <div></div>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
 

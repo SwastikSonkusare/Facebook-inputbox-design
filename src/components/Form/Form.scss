@@ -93,6 +93,10 @@
     background-color: $light-color;
     cursor: pointer;
 
+    &:focus {
+      outline: none;
+    }
+
     &.active {
       color: $white-color;
       background-color: $light-blue-color;

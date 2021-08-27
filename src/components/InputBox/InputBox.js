@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import search from "../../assets/images/icons8-search.svg";
-
 import Post from "../Post/Post";
 import Form from "../Form/Form";
 import Gifs from "../Gifs/Gifs";
 import Spinner from "../Spinner/Spinner";
+
+import search from "../../assets/images/icons8-search.svg";
 
 const InputBox = () => {
   const [showInput, setShowInput] = useState(false);

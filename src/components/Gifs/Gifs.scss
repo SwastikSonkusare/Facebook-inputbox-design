@@ -1,3 +1,5 @@
+@import "../../sass/abstracts/variables";
+
 .gifs {
   &__container {
     margin-top: 1rem;
@@ -15,5 +17,5 @@
 }
 
 .border {
-  outline: 5px solid gray;
+  outline: 5px solid $light-blue-color;
 }

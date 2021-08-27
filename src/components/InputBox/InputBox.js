@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { v4 as uuidv4 } from "uuid";
+
+import search from "../../assets/images/icons8-search.svg";
 
 import Post from "../Post/Post";
 import Form from "../Form/Form";
@@ -108,7 +109,7 @@ const InputBox = () => {
         />
         {showInput && (
           <div>
-            <form onSubmit={handleFetchGifs}>
+            <form onSubmit={handleFetchGifs} className="form">
               <input
                 className="form__input"
                 type="text"
@@ -116,6 +117,8 @@ const InputBox = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               ></input>
+              <img className="form__search" src={search} alt="search"></img>
+
               <button hidden type="submit">
                 Submit
               </button>

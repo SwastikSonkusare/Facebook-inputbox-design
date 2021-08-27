@@ -2,6 +2,7 @@ import React from "react";
 
 import user from "../../assets/images/photo-1501196354995-cbb51c65aaea.jfif";
 import gif from "../../assets/images/gif.png";
+import search from "../../assets/images/icons8-search.svg";
 
 import "./Form.scss";
 
@@ -11,13 +12,16 @@ const Form = ({ handleSubmitPost, showSearchBar, text, setText, image }) => {
       <div className="container__top-section">
         <img src={user} alt="user" className="container__image"></img>
 
-        <input
-          className="form__input"
-          type="text"
-          placeholder="What's on your mind, Mike?"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        ></input>
+        <div className="form__container">
+          <input
+            className="form__input"
+            type="text"
+            placeholder="What's on your mind, Mike?"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          ></input>
+          <img className="form__search" src={search} alt="search"></img>
+        </div>
         <button hidden type="submit">
           Submit
         </button>

@@ -13,6 +13,10 @@ html {
   position: relative;
   min-height: 100vh;
   font-size: 62.5%; /*1rem = 10px*/
+
+  @media only screen and (min-width: 95em) {
+    font-size: 84.5%; //1rem = 13.5px
+  }
 }
 
 body {
@@ -22,6 +26,10 @@ body {
 }
 
 main {
-  width: 500px;
+  max-width: 500px;
   margin: 10rem auto;
+
+  @media only screen and (max-width: 37.5em) {
+    margin-inline: 2rem;
+  }
 }

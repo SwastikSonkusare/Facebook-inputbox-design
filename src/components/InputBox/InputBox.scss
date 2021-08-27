@@ -73,3 +73,17 @@
     }
   }
 }
+
+.gifs {
+  &__container {
+    margin-top: 1rem;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+
+    & img {
+      width: 100%;
+    }
+  }
+}

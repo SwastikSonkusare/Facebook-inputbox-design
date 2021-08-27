@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import axios from "axios";
+
 import { Grid } from "@giphy/react-components";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 
@@ -9,45 +11,62 @@ import gif from "../../assets/images/gif.png";
 import "./InputBox.scss";
 
 const InputBox = () => {
-  const handleSubmitPost = (e) => {
-    e.preventDefault();
-  };
-
   const [showInput, setShowInput] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("dogs");
+  const [searchTerm, setSearchTerm] = useState("");
   const [fetchGifs, setFetchGifs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
 
-  //   const gf = new GiphyFetch("vN5xGq3JsUZRGkVYJBgYdJ5a7bJ4ZsSQ");
+  const [text, setText] = useState("");
+  const [image, setImage] = useState("");
 
-  const GIPHY_API = `https://api.giphy.com/v1/gifs/search?api_key=vN5xGq3JsUZRGkVYJBgYdJ5a7bJ4ZsSQ&limit=10&offset=0&q=${searchTerm}`;
+  const [posts, setPosts] = useState([]);
+
+  const GIPHY_API = `https://api.giphy.com/v1/gifs/search?api_key=vN5xGq3JsUZRGkVYJBgYdJ5a7bJ4ZsSQ&limit=10&offset=0&q=${query}`;
 
   useEffect(() => {
-    if (searchTerm.length > 0) {
+    const fetchGiphyGifs = async () => {
       setLoading(true);
-      fetch(GIPHY_API)
-        .then((res) => {
-          setLoading(false);
-          return res.json();
-        })
-        .then((result) => {
-          setFetchGifs(
-            result.data.map((gif) => {
-              return gif.images.fixed_height.url;
-            })
-          );
-        })
-        .catch(() => {
-          setLoading(false);
-          alert("Something went wrong");
-        });
-    }
 
-    console.log(fetchGifs);
-  }, [searchTerm]);
+      const response = await fetch(GIPHY_API);
+
+      const data = await response.json();
+
+      setLoading(false);
+
+      setFetchGifs(data.data);
+    };
+    fetchGiphyGifs();
+  }, [query]);
 
   const showSearchBar = () => {
     setShowInput((prevState) => !prevState);
+  };
+
+  const handleFetchGifs = (e) => {
+    e.preventDefault();
+
+    setQuery(searchTerm);
+    setSearchTerm("");
+  };
+
+  const handleSubmitPost = (e) => {
+    e.preventDefault();
+
+    if (text.length && image.length) {
+      let copy = [...posts];
+
+      copy = [...copy, { image, text }];
+
+      //   console.log(copy);
+
+      setPosts(copy);
+      console.log(posts);
+
+      setText("");
+      setImage("");
+      setQuery("");
+    }
   };
 
   return (
@@ -55,13 +74,15 @@ const InputBox = () => {
       <div className="container__top-section">
         <img src={user} alt="user" className="container__image"></img>
 
-        <form className="form">
+        <form className="form" onSubmit={handleSubmitPost}>
           <input
             className="form__input"
             type="text"
             placeholder="What's on your mind, Mike?"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
           ></input>
-          <button hidden type="submit" onClick={handleSubmitPost}>
+          <button hidden type="submit">
             Submit
           </button>
         </form>
@@ -76,21 +97,34 @@ const InputBox = () => {
 
       {showInput && (
         <div>
-          <input
-            className="form__input"
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          ></input>
+          <form onSubmit={handleFetchGifs}>
+            <input
+              className="form__input"
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            ></input>
+            <button hidden type="submit">
+              Submit
+            </button>
+          </form>
 
-          <Grid
-            width={400}
-            columns={3}
-            gutter={6}
-            fetchGifs={fetchGifs}
-            key={searchTerm}
-          />
+          {loading ? (
+            "Loading"
+          ) : (
+            <div className="gifs__container">
+              {fetchGifs.length &&
+                fetchGifs.map((g, index) => (
+                  <img
+                    src={g.images.fixed_height.url}
+                    key={index}
+                    alt="gifs"
+                    onClick={() => setImage(g.images.fixed_height.url)}
+                  ></img>
+                ))}
+            </div>
+          )}
         </div>
       )}
     </div>

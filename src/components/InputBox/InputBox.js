@@ -8,10 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import Post from "../Post/Post";
 
-import user from "../../assets/images/photo-1501196354995-cbb51c65aaea.jfif";
-import gif from "../../assets/images/gif.png";
-
-import "./InputBox.scss";
+import Form from "../Form/Form";
+import Gifs from "../Gifs/Gifs";
 
 const InputBox = () => {
   const [showInput, setShowInput] = useState(false);
@@ -79,38 +77,13 @@ const InputBox = () => {
   return (
     <>
       <div className="container">
-        <form className="form" onSubmit={handleSubmitPost}>
-          <div className="container__top-section">
-            <img src={user} alt="user" className="container__image"></img>
-
-            <input
-              className="form__input"
-              type="text"
-              placeholder="What's on your mind, Mike?"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            ></input>
-            <button hidden type="submit">
-              Submit
-            </button>
-          </div>
-          <div className="container__bottom-section" onClick={showSearchBar}>
-            <div>
-              <img src={gif} alt="gif"></img>
-              <span>Gif</span>
-            </div>
-
-            <button
-              className={`${
-                text.length && image.length
-                  ? "container__button active"
-                  : "container__button"
-              }`}
-            >
-              Post
-            </button>
-          </div>
-        </form>
+        <Form
+          handleSubmitPost={handleSubmitPost}
+          showSearchBar={showSearchBar}
+          text={text}
+          image={image}
+          setText={setText}
+        />
         {showInput && (
           <div>
             <form onSubmit={handleFetchGifs}>
@@ -132,27 +105,24 @@ const InputBox = () => {
               <div className="gifs__container">
                 {fetchGifs.length &&
                   fetchGifs.map((g, index) => (
-                    <div
-                      onClick={() => handleClickImage(index)}
-                      className={selectImage === index ? "border" : ""}
-                      key={index}
-                    >
-                      <img
-                        src={g.images.fixed_height.url}
-                        key={index}
-                        alt="gifs"
-                        onClick={() => setImage(g.images.fixed_height.url)}
-                      ></img>
-                    </div>
+                    <Gifs
+                      handleClickImage={handleClickImage}
+                      index={index}
+                      selectImage={selectImage}
+                      setImage={setImage}
+                      g={g}
+                    />
                   ))}
               </div>
             )}
           </div>
         )}
       </div>
-      {posts.length
-        ? posts.map((post) => <Post post={post} />)
-        : "No posts yet"}
+      {posts.length ? (
+        posts.map((post) => <Post post={post} />)
+      ) : (
+        <div>No posts yet</div>
+      )}
     </>
   );
 };

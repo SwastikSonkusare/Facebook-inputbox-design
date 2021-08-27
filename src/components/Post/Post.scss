@@ -1,9 +1,10 @@
+@import "../../sass/abstracts/variables";
+
 .post {
   margin-top: 2rem;
 
-  background-color: #fff;
-  //   padding: 1.2rem 1.6rem 1rem 1.6rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: $white-color;
+  box-shadow: $box-shadow;
   border-radius: 8px;
   overflow: hidden;
 
@@ -22,10 +23,10 @@
         grid-gap: 1rem;
 
         & img {
+          display: block;
           width: 40px;
           height: 40px;
           border-radius: 100%;
-          display: block;
           object-fit: cover;
         }
       }
@@ -81,7 +82,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border-top: 2px solid rgb(240, 242, 245);
+    border-top: 2px solid $light-color;
     padding: 1.2rem;
 
     & div {
@@ -90,7 +91,7 @@
       grid-gap: 1rem;
 
       & span {
-        color: rgb(101, 103, 107);
+        color: $secondary-gray-color;
         font-size: 1.5rem;
         font-weight: 600;
       }
@@ -117,7 +118,8 @@
     }
 
     & span {
-      color: rgb(101, 103, 107);
+      color: $secondary-gray-color;
+
       font-size: 1.5rem;
       font-weight: 400;
     }

@@ -1,15 +1,37 @@
+@import "../../sass/abstracts/variables";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+
+  &__input {
+    width: 100%;
+    border: none;
+    border-radius: 2rem;
+    background-color: $light-color;
+    padding: 0.8rem 1.2rem;
+    color: $primary-gray-color;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .container {
   width: 100%;
   background-color: #fff;
   padding: 1.2rem 1.6rem 1rem 1.6rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: $box-shadow;
   border-radius: 8px;
 
   &__image {
+    display: block;
     width: 40px;
     height: 40px;
     border-radius: 100%;
-    display: block;
     object-fit: cover;
   }
 
@@ -26,7 +48,7 @@
     width: 100%;
     padding-top: 1rem;
     margin-top: 1rem;
-    border-top: 2px solid rgb(240, 242, 245);
+    border-top: 2px solid $light-color;
 
     & div {
       width: max-content;
@@ -41,12 +63,12 @@
       margin: 0 auto;
 
       &:hover {
-        background-color: rgb(240, 242, 245);
+        background-color: $light-color;
       }
 
       & span {
         font-size: 1.7rem;
-        color: #050505;
+        color: $primary-gray-color;
         font-weight: 600;
         text-transform: uppercase;
       }
@@ -65,52 +87,15 @@
     width: 100%;
     border: none;
     border-radius: 6px;
-    color: rgb(188, 192, 196);
+    color: $light-primary-color;
     font-size: 1.4rem;
     font-weight: 600;
-    background-color: rgb(240, 242, 245);
+    background-color: $light-color;
+    cursor: pointer;
 
     &.active {
-      color: #fff;
-      background-color: rgb(24, 119, 242);
+      color: $white-color;
+      background-color: $light-blue-color;
     }
   }
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-
-  &__input {
-    width: 100%;
-    border: none;
-    border-radius: 2rem;
-    background-color: rgb(240, 242, 245);
-    padding: 0.8rem 1.2rem;
-    color: rgb(28, 30, 33);
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
-.gifs {
-  &__container {
-    margin-top: 1rem;
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-
-    & img {
-      width: 100%;
-    }
-  }
-}
-
-.border {
-  border: 2px solid gray;
 }

@@ -14,11 +14,16 @@
   }
 
   &__top-section {
+    width: 100%;
     display: flex;
     grid-gap: 1rem;
   }
 
   &__bottom-section {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+    width: 100%;
     padding-top: 1rem;
     margin-top: 1rem;
     border-top: 2px solid rgb(240, 242, 245);
@@ -53,10 +58,28 @@
       }
     }
   }
+
+  &__button {
+    margin-bottom: 1rem;
+    padding: 1rem 0;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    color: rgb(188, 192, 196);
+    font-size: 1.4rem;
+    font-weight: 600;
+    background-color: rgb(240, 242, 245);
+
+    &.active {
+      color: #fff;
+      background-color: rgb(24, 119, 242);
+    }
+  }
 }
 
 .form {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   align-items: center;
 
@@ -86,4 +109,8 @@
       width: 100%;
     }
   }
+}
+
+.border {
+  border: 2px solid gray;
 }

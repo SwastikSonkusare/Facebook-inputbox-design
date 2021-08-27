@@ -22,7 +22,8 @@ const InputBox = () => {
 
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
-  const [selectGif, setSelectGif] = useState(false);
+
+  const [selectImage, setSelectImage] = useState("");
 
   const [posts, setPosts] = useState([]);
 
@@ -42,26 +43,6 @@ const InputBox = () => {
     };
     fetchGiphyGifs();
   }, [query]);
-
-  //   useEffect(() => {
-  //     addToLocalStorage(posts);
-  //   }, [posts]);
-
-  //   useEffect(() => {
-  //     getFromLocalStorage();
-  //   }, []);
-
-  //   const addToLocalStorage = (posts) => {
-  //     localStorage.setItem("posts", JSON.stringify(posts));
-  //   };
-
-  //   const getFromLocalStorage = () => {
-  //     const reference = localStorage.getItem("posts");
-
-  //     if (reference) {
-  //       setPosts(JSON.parse(reference));
-  //     }
-  //   };
 
   const showSearchBar = () => {
     setShowInput((prevState) => !prevState);
@@ -91,13 +72,17 @@ const InputBox = () => {
     }
   };
 
+  const handleClickImage = (index) => {
+    setSelectImage(index);
+  };
+
   return (
     <>
       <div className="container">
-        <div className="container__top-section">
-          <img src={user} alt="user" className="container__image"></img>
+        <form className="form" onSubmit={handleSubmitPost}>
+          <div className="container__top-section">
+            <img src={user} alt="user" className="container__image"></img>
 
-          <form className="form" onSubmit={handleSubmitPost}>
             <input
               className="form__input"
               type="text"
@@ -108,16 +93,24 @@ const InputBox = () => {
             <button hidden type="submit">
               Submit
             </button>
-          </form>
-        </div>
-
-        <div className="container__bottom-section" onClick={showSearchBar}>
-          <div>
-            <img src={gif} alt="gif"></img>
-            <span>Gif</span>
           </div>
-        </div>
+          <div className="container__bottom-section" onClick={showSearchBar}>
+            <div>
+              <img src={gif} alt="gif"></img>
+              <span>Gif</span>
+            </div>
 
+            <button
+              className={`${
+                text.length && image.length
+                  ? "container__button active"
+                  : "container__button"
+              }`}
+            >
+              Post
+            </button>
+          </div>
+        </form>
         {showInput && (
           <div>
             <form onSubmit={handleFetchGifs}>
@@ -139,12 +132,18 @@ const InputBox = () => {
               <div className="gifs__container">
                 {fetchGifs.length &&
                   fetchGifs.map((g, index) => (
-                    <img
-                      src={g.images.fixed_height.url}
+                    <div
+                      onClick={() => handleClickImage(index)}
+                      className={selectImage === index ? "border" : ""}
                       key={index}
-                      alt="gifs"
-                      onClick={() => setImage(g.images.fixed_height.url)}
-                    ></img>
+                    >
+                      <img
+                        src={g.images.fixed_height.url}
+                        key={index}
+                        alt="gifs"
+                        onClick={() => setImage(g.images.fixed_height.url)}
+                      ></img>
+                    </div>
                   ))}
               </div>
             )}

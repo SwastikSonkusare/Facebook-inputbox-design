@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-// import axios from "axios";
-
-// import { Grid } from "@giphy/react-components";
-// import { GiphyFetch } from "@giphy/js-fetch-api";
 import { v4 as uuidv4 } from "uuid";
 
 import Post from "../Post/Post";
-
 import Form from "../Form/Form";
 import Gifs from "../Gifs/Gifs";
 import Spinner from "../Spinner/Spinner";
@@ -26,7 +21,7 @@ const InputBox = () => {
 
   const [posts, setPosts] = useState([]);
 
-  const GIPHY_API = `https://api.giphy.com/v1/gifs/search?api_key=vN5xGq3JsUZRGkVYJBgYdJ5a7bJ4ZsSQ&limit=10&offset=0&q=${query}`;
+  const GIPHY_API = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&limit=10&offset=0&q=${query}`;
 
   useEffect(() => {
     const fetchGiphyGifs = async () => {
@@ -42,6 +37,28 @@ const InputBox = () => {
     };
     fetchGiphyGifs();
   }, [query]);
+
+  const addToLocalStorage = (posts) => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  };
+
+  // function helps to get everything from local storage
+  const getFromLocalStorage = () => {
+    const reference = localStorage.getItem("posts");
+    // if reference exists
+    if (reference) {
+      // converts back to array and store it in todos array
+      setPosts(JSON.parse(reference));
+    }
+  };
+
+  useEffect(() => {
+    getFromLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    addToLocalStorage(posts);
+  }, [posts]);
 
   const showSearchBar = () => {
     setShowInput((prevState) => !prevState);
@@ -108,16 +125,17 @@ const InputBox = () => {
               <Spinner />
             ) : (
               <div className="gifs__container">
-                {fetchGifs.length &&
-                  fetchGifs.map((g, index) => (
-                    <Gifs
-                      handleClickImage={handleClickImage}
-                      index={index}
-                      selectImage={selectImage}
-                      setImage={setImage}
-                      g={g}
-                    />
-                  ))}
+                {fetchGifs.length
+                  ? fetchGifs.map((g, index) => (
+                      <Gifs
+                        handleClickImage={handleClickImage}
+                        index={index}
+                        selectImage={selectImage}
+                        setImage={setImage}
+                        g={g}
+                      />
+                    ))
+                  : ""}
               </div>
             )}
           </div>

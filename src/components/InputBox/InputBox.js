@@ -6,6 +6,8 @@ import React, { useState, useEffect } from "react";
 // import { GiphyFetch } from "@giphy/js-fetch-api";
 import { v4 as uuidv4 } from "uuid";
 
+import Post from "../Post/Post";
+
 import user from "../../assets/images/photo-1501196354995-cbb51c65aaea.jfif";
 import gif from "../../assets/images/gif.png";
 
@@ -20,6 +22,7 @@ const InputBox = () => {
 
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
+  const [selectGif, setSelectGif] = useState(false);
 
   const [posts, setPosts] = useState([]);
 
@@ -76,18 +79,15 @@ const InputBox = () => {
 
     if (text.length && image.length) {
       let copy = [...posts];
-      console.log(copy);
 
       copy = [...copy, { id: uuidv4(), image, text }];
 
-      console.log(copy);
-
       setPosts(copy);
-      console.log(posts);
 
       setText("");
       setImage("");
       setQuery("");
+      setShowInput(false);
     }
   };
 
@@ -152,12 +152,7 @@ const InputBox = () => {
         )}
       </div>
       {posts.length
-        ? posts.map((post) => (
-            <div>
-              <img src={post.image}></img>
-              <span>{post.text}</span>
-            </div>
-          ))
+        ? posts.map((post) => <Post post={post} />)
         : "No posts yet"}
     </>
   );

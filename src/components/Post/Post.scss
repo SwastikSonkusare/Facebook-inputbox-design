@@ -1,0 +1,125 @@
+.post {
+  margin-top: 2rem;
+
+  background-color: #fff;
+  //   padding: 1.2rem 1.6rem 1rem 1.6rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+
+    &-left {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.2rem 1.6rem 1rem 1.6rem;
+
+      & div {
+        display: flex;
+        grid-gap: 1rem;
+
+        & img {
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+          display: block;
+          object-fit: cover;
+        }
+      }
+    }
+    &-right {
+    }
+  }
+
+  &__name {
+    display: flex;
+    grid-gap: 0.5rem;
+    flex-direction: column;
+
+    & span {
+      color: rbg(5, 5, 5);
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    & small {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+
+    & span {
+      font-size: 2.4rem;
+      font-weight: 400;
+      margin: 1rem 1.6rem 1rem 1.6rem;
+    }
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  &__cta {
+    padding: 2rem 2rem 0 2rem;
+
+    & div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 2px solid rgb(240, 242, 245);
+    padding: 1.2rem;
+
+    & div {
+      display: flex;
+      align-items: center;
+      grid-gap: 1rem;
+
+      & span {
+        color: rgb(101, 103, 107);
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      & img {
+        display: block;
+        height: 1.8rem;
+        width: 1.8rem;
+      }
+    }
+  }
+
+  &__likes,
+  &__comments {
+    display: flex;
+    align-items: center;
+    grid-gap: 2rem;
+
+    & img {
+      display: block;
+      object-fit: cover;
+      width: 18px;
+      height: 18px;
+    }
+
+    & span {
+      color: rgb(101, 103, 107);
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+  }
+}
